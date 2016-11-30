@@ -1,11 +1,13 @@
 require 'test_helper'
 
 class DjOneTest < Minitest::Test
-  def test_that_it_has_a_version_number
-    refute_nil ::DjOne::VERSION
+  class TestJob
+    def perform
+    end
   end
 
-  def test_it_does_something_useful
-    assert true
+  def test_it_is_possible_to_create_job
+    Delayed::Job.enqueue(TestJob.new)
+    assert_equal 1, Delayed::Job.count
   end
 end
