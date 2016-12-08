@@ -33,4 +33,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency   'activerecord', ">= 4.0"
   spec.add_dependency   'delayed_job',  ">= 4.0"
   spec.add_dependency   'delayed_job_active_record',  ">= 4.0"
+  spec.add_dependency   'railties', '>= 4.0'
 end
