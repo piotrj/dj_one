@@ -6,6 +6,7 @@ require "sqlite3"
 
 require 'minitest/autorun'
 
+require "dj_one/templates/install_dj_one_migration"
 
 def connect_active_record
   adapter = "sqlite"
@@ -37,8 +38,15 @@ def load_db_schema
     end
 
     add_index :delayed_jobs, [:priority, :run_at], name: "delayed_jobs_priority"
+
+    AddDjOne.up
   end
+end
+
+def install_plugin
+  Delayed::Worker.plugins << DjOne::Plugin
 end
 
 connect_active_record
 load_db_schema
+install_plugin
