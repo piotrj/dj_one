@@ -1,7 +1,7 @@
 class AddDjOne < ActiveRecord::Migration
   def self.up
     add_column :delayed_jobs, :unique_id, :string
-    add_index :delayed_jobs, [:unique_id], name: :unique_delayed_jobs
+    add_index :delayed_jobs, [:unique_id], name: :unique_delayed_jobs, unique: true
   end
 
   def self.down
