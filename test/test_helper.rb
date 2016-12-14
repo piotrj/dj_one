@@ -44,7 +44,6 @@ def load_db_schema
 end
 
 def install_plugin
-  Delayed::Worker.plugins << DjOne::Plugin
 end
 
 connect_active_record
