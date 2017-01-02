@@ -39,7 +39,7 @@ def load_db_schema
 
     add_index :delayed_jobs, [:priority, :run_at], name: "delayed_jobs_priority"
 
-    AddDjOne.up
+    InstallDjOne.up
   end
 end
 
