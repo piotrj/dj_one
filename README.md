@@ -32,6 +32,9 @@ Well, so here is the thing. You don't know at which point of operation JobA1 is.
 
 ## Installation
 
+This guide assumes that you have delayed_job set up in your project (along with ActiveRecord adapter for DelayedJobs).
+If not follow the guide from here: https://github.com/collectiveidea/delayed_job.
+
 1. Add `dj_one` to your Gemfile.
 
 ```ruby
@@ -39,7 +42,7 @@ Well, so here is the thing. You don't know at which point of operation JobA1 is.
 ```
 
 2. Run `bundle install`.
-3. Generate a migration that will add a column and unique index that will help us ensure uniqueness of jobs.
+3. Run `rails g delayed_job:add_dj_one`. This will generate a migration that will add a column and unique index that will help us ensure uniqueness of jobs.
 4. Run `rake db:migrate`
 5. Add DjOne as a plugin in your DelayedJob initializer
 ```ruby
