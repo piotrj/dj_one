@@ -34,7 +34,7 @@ Well, so here is the thing. You don't know at which point of operation JobA1 is.
 
 1. Add `dj_one` to your Gemfile.
 
-```
+```ruby
   gem 'dj_one'
 ```
 
@@ -42,7 +42,7 @@ Well, so here is the thing. You don't know at which point of operation JobA1 is.
 3. Generate a migration that will add a column and unique index that will help us ensure uniqueness of jobs.
 4. Run `rake db:migrate`
 5. Add DjOne as a plugin in your DelayedJob initializer
-```
+```ruby
 # config/initializers/delayed_job_config.rb (or other file where you initialize DelayedJob)
 
 Delayed::Worker.plugins << DjOne::Plugin
@@ -56,7 +56,7 @@ Delayed::Worker.plugins << DjOne::Plugin
 
 Now that we have the gem installed let's add this functionality to our job.
 
-```
+```ruby
 FetchCalendarEventsJob = Struct.new(:calendar_name)
   # This is the id that we will try to set when enqueueing the job.
   def enqueue_id
