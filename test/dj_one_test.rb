@@ -90,6 +90,21 @@ class DjOneTest < Minitest::Test
     assert_equal false, job_processed
   end
 
+  def test_duplicate_perform_job_is_rescheduled_for_later
+    with_dj_one
+
+    user_id = 16
+    job1 = schedule_test_job(user_id)
+    mark_as_processing(job1)
+
+    job2 = schedule_test_job(user_id)
+    initial_run_at = job2.run_at
+
+    Delayed::Worker.new.work_off
+
+    assert job2.reload.run_at > initial_run_at
+  end
+
   def test_when_job_fails_for_the_last_time_unique_id_is_removed
     with_dj_one
 
@@ -136,8 +151,6 @@ class DjOneTest < Minitest::Test
     TestJob.send(:define_method, :perform_stub, &block)
     TestJob.send(:alias_method, :perform_original, :perform)
     TestJob.send(:alias_method, :perform, :perform_stub)
-  ensure
-
   end
 
   def clear_perform_stub
@@ -149,6 +162,6 @@ class DjOneTest < Minitest::Test
   end
 
   def mark_as_processing(job)
-    job.update_attributes(unique_id: job.payload_object.enqueue_id, locked_at: Time.now)
+    job.update_attributes(unique_id: job.payload_object.perform_id, locked_at: Time.now)
   end
 end

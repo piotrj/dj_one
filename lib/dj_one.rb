@@ -7,6 +7,8 @@ require "delayed_job_active_record"
 require "dj_one/generator"
 
 module DjOne
+  DEFAULT_DUPLICATE_DELAY = 30.seconds
+
   class Plugin < Delayed::Plugin
     callbacks do |lifecycle|
       Handler.new(lifecycle)
