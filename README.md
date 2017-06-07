@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/piotrj/dj_one.svg?branch=master)](https://travis-ci.org/piotrj/dj_one)
 
+If you want to get rid of duplicated DelayedJobs - DjOne is for you.
+
 ## What is DjOne
 
 DjOne ensures that you don't have duplicate jobs scheduled or running. When you schedule a job as a reaction to some event you may end up with multiple jobs that will be basically doing the same thing.
