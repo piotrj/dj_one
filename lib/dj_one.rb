@@ -23,7 +23,7 @@ module DjOne
 
       def enqueue(job, &proceed)
         job.unique_id = get_attribute(job, :enqueue_id)
-        proceed.call
+        proceed.call(job)
       rescue ActiveRecord::RecordNotUnique
       end
 
@@ -31,7 +31,7 @@ module DjOne
         job.unique_id = get_attribute(job, :perform_id)
         job.save! if job.changed?
 
-        proceed.call
+        proceed.call(worker, job)
       rescue ActiveRecord::RecordNotUnique
         job.unique_id = job.unique_id_was
         job.run_at = calculate_run_at(job)
@@ -40,7 +40,7 @@ module DjOne
 
       def failure(worker, job, &proceed)
         job.unique_id = nil
-        proceed.call
+        proceed.call(worker, job)
       end
 
       def get_attribute(job, method_name)
